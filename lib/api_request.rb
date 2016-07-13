@@ -69,16 +69,7 @@ class BluePay
     
     ua = Net::HTTP.new(SERVER, 443)
     ua.use_ssl = true
-    
-    # Checks presence of CA certificate
-    if File.directory?(RootCA)
-      ua.ca_path = RootCA
-      ua.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      ua.verify_depth = 3
-    else
-      puts "Invalid CA certificates directory. Exiting..."
-      exit
-    end
+    ua.verify_mode = OpenSSL::SSL::VERIFY_PEER
     
     # Sets REMOTE_IP parameter
     begin
